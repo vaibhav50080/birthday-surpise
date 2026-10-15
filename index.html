@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#171329" />
+<title>A Little Birthday Wish For You ✨</title>
+<style>
+  :root {
+    --night: #171329;
+    --plum: #302044;
+    --pink: #ffb7d5;
+    --rose: #ff7eae;
+    --cream: #fff4e8;
+    --gold: #ffe4a3;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--cream);
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(255,126,174,.18), transparent 35%),
+      radial-gradient(ellipse at 90% 75%, rgba(177,139,255,.18), transparent 35%),
+      linear-gradient(145deg, #121020, var(--night) 48%, #241731);
+  }
+  .stars, .confetti-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  .star {
+    position: absolute; width: 3px; height: 3px; border-radius: 50%;
+    background: #fff7d6; opacity: .25; animation: twinkle 2.5s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { to { opacity: 1; transform: scale(1.8); } }
+  .wrap {
+    position: relative; z-index: 1; width: min(900px, 100%); margin: auto;
+    padding: 34px 20px 54px; text-align: center;
+  }
+  .eyebrow {
+    display: inline-block; color: var(--gold); text-transform: uppercase;
+    letter-spacing: .24em; font: 11px/1.5 Arial, sans-serif; margin: 8px 0 20px;
+  }
+  .hero { min-height: 88vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .moon {
+    width: 94px; height: 94px; border-radius: 50%; margin: 0 auto 24px;
+    background: radial-gradient(circle at 32% 28%, #fff9dc, #ffe1b7 55%, #f6a9c9);
+    box-shadow: 0 0 35px rgba(255,220,180,.3), 0 0 100px rgba(255,126,174,.13);
+    animation: float 4s ease-in-out infinite;
+    position: relative;
+  }
+  .moon:after { content:""; position:absolute; width:84px; height:84px; border-radius:50%; background:#20162e; top:-8px; right:-12px; }
+  @keyframes float { 50% { transform: translateY(-9px); } }
+  h1 {
+    font-size: clamp(2.7rem, 9vw, 5.7rem); line-height: .98; font-weight: 400;
+    letter-spacing: -.045em; margin: 0; text-shadow: 0 4px 32px rgba(255,126,174,.16);
+  }
+  h1 span { color: var(--pink); font-style: italic; }
+  .subtitle { max-width: 520px; font: 15px/1.8 Arial, sans-serif; color: #ded5e8; margin: 23px auto 30px; }
+  .cta {
+    appearance: none; border: 1px solid rgba(255,228,163,.55); color: #24172e;
+    background: linear-gradient(135deg, #ffe7b5, #ffb7d5); border-radius: 999px;
+    padding: 14px 23px; font: 600 13px Arial, sans-serif; letter-spacing: .03em;
+    cursor: pointer; box-shadow: 0 8px 30px rgba(255,126,174,.17); transition: transform .2s, box-shadow .2s;
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(255,126,174,.28); }
+  .scroll-note { margin-top: 28px; color: #a99bb9; font: 11px Arial, sans-serif; letter-spacing: .14em; }
+  .scroll-note span { display:block; font-size: 18px; margin-top: 8px; animation: bob 1.5s infinite; }
+  @keyframes bob { 50% { transform: translateY(5px); } }
+  .letter {
+    max-width: 690px; margin: 0 auto 28px; padding: clamp(25px, 6vw, 48px);
+    border: 1px solid rgba(255,228,163,.2); border-radius: 25px;
+    background: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+    box-shadow: 0 22px 80px rgba(0,0,0,.18); backdrop-filter: blur(10px);
+    text-align: left; opacity: 0; transform: translateY(24px); transition: opacity .9s, transform .9s;
+  }
+  .letter.visible { opacity: 1; transform: translateY(0); }
+  .letter h2 { color: var(--pink); font-weight: 400; font-size: clamp(1.8rem, 5vw, 2.5rem); text-align: center; margin: 0 0 24px; }
+  .letter p { color: #f1e8f3; font-size: clamp(15px, 2.5vw, 17px); line-height: 1.95; margin: 0 0 17px; }
+  .letter .signoff { color: var(--gold); font-style: italic; text-align: right; margin-top: 28px; }
+  .wish-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 690px; margin: 22px auto 58px; }
+  .wish {
+    border: 1px solid rgba(255,183,213,.18); border-radius: 18px; padding: 20px 12px;
+    background: rgba(255,255,255,.04); min-height: 130px; opacity: 0; transform: translateY(18px);
+    transition: opacity .7s, transform .7s;
+  }
+  .wish.visible { opacity: 1; transform: translateY(0); }
+  .wish .emoji { font-size: 25px; display:block; margin-bottom: 12px; }
+  .wish strong { color: var(--pink); font-weight: 400; font-size: 17px; display:block; margin-bottom: 7px; }
+  .wish small { color: #cfc3d9; font: 12px/1.6 Arial, sans-serif; }
+  .finale { padding: 20px 0 10px; }
+  .finale .heart { color: var(--rose); font-size: 30px; display:inline-block; animation: heartbeat 1.3s infinite; }
+  @keyframes heartbeat { 0%,100%{transform:scale(1)} 14%{transform:scale(1.18)} 28%{transform:scale(1)} 42%{transform:scale(1.12)} }
+  .finale p { color: #d4c9df; font: 13px/1.8 Arial, sans-serif; }
+  footer { color: #897d99; font: 10px Arial, sans-serif; letter-spacing: .12em; margin-top: 42px; }
+  .secret-note {
+    max-width: 520px; margin: 24px auto 0; padding: 22px 24px; border-radius: 20px;
+    border: 1px solid rgba(255,228,163,.28); background: rgba(255,255,255,.045);
+    opacity: 0; transform: translateY(12px); transition: opacity .7s, transform .7s; display: none;
+  }
+  .secret-note.visible { display: block; opacity: 1; transform: translateY(0); }
+  .secret-note span { color: var(--gold); font: 11px Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+  .secret-note p { color: #f1e8f3; font: 15px/1.8 Georgia, serif; margin: 12px 0 0; }
+  .petal {
+    position: fixed; top: -20px; z-index: 3; pointer-events: none; opacity: .8;
+    animation: fall linear forwards; filter: drop-shadow(0 2px 5px rgba(0,0,0,.12));
+  }
+  @keyframes fall { to { transform: translate3d(var(--drift), 110vh, 0) rotate(760deg); opacity: .15; } }
+  @media (max-width: 560px) {
+    .wrap { padding-inline: 16px; }
+    .hero { min-height: 85vh; }
+    .wish-cards { grid-template-columns: 1fr; max-width: 360px; }
+    .wish { min-height: auto; padding: 18px; }
+    .wish .emoji { display: inline; margin-right: 8px; font-size: 20px; }
+    .wish strong { display: inline; }
+    .wish small { display: block; margin-top: 7px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="confetti-layer" id="confetti"></div>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="moon" aria-hidden="true"></div>
+    <div class="eyebrow">a little something, just for you</div>
+    <h1>For Mam…<br><span>my Devi ji.</span></h1>
+    <p class="subtitle">A little birthday surprise for a pure soul who deserves a day as lovely as the warmth she brings to others. ✨</p>
+    <button class="cta" id="openWish">Open your little birthday letter ✨</button>
+    <div class="scroll-note">MADE WITH A LITTLE EXTRA CARE<span>↓</span></div>
+  </section>
+
+  <section class="letter" id="letter">
+    <h2>A little wish, from the heart 🤍</h2>
+    <p>Hey, Mam… my Devi ji, my pure soul, 🤍</p>
+    <p>First of all, happy birthday, Mam. 🥹🤍 I know I call you by so many names — Mam, Devi ji, my pure soul — but somehow, each one has its own little meaning.</p>
+    <p>Today, I hope you get more than just birthday wishes. I hope you feel genuinely loved, appreciated, and proud of the person you are. I hope the coming year brings you peaceful days, beautiful surprises, people who understand your heart, and countless little reasons to smile.</p>
+    <p>And on the days when your mind gets a little too loud or you forget how much goodness you carry, I hope you remember this: you don’t have to be strong every second, you don’t have to have everything figured out, and you never have to earn the care and kindness you deserve. You’re allowed to rest, to feel things deeply, and to grow at your own pace.</p>
+    <p>I hope you get all the little things that make you happy — unexpected reasons to laugh, peaceful nights, lovely memories, your favourite food, plenty of chocolate cake, and dreams that slowly turn into real moments. And more than anything, I hope life brings you people who make you feel safe to be completely yourself.</p>
+    <p>I'm genuinely glad our paths crossed. Somewhere between our little conversations and all the names I call you, you've become someone whose presence I genuinely appreciate. I hope life is as gentle with you as your heart has been with the people around you. 🤍</p>
+    <p>So, for your birthday, I just wish you a year that feels lighter, happier, and kinder to your heart. May you find more reasons to believe in yourself and more moments that remind you how much good is still waiting for you.</p>
+    <p class="signoff">Happy birthday, Devi ji. Never lose that gentle little light that makes you you. The world needs more pure souls like yours. You deserve so much goodness. ✨</p>
+  </section>
+
+  <div class="wish-cards" id="wishes">
+    <div class="wish"><span class="emoji">🌷</span><strong>Gentle days</strong><small>May life meet you with the same kindness you give.</small></div>
+    <div class="wish"><span class="emoji">🌙</span><strong>Quiet peace</strong><small>May you feel understood, even without saying much.</small></div>
+    <div class="wish"><span class="emoji">🎂</span><strong>Little joys</strong><small>More belly laughs, sweet surprises, and chocolate cake.</small></div>
+  </div>
+
+  <section class="finale">
+    <span class="heart">♥</span>
+    <p>Here's to a year that feels a little lighter, a little brighter,<br>and full of reminders that you matter more than you know.</p>
+    <button class="cta" id="surprise">One last little surprise ✨</button>
+  </section>
+  <div class="secret-note" id="secretNote" aria-live="polite">
+    <span>✦ A little reminder ✦</span>
+    <p>You don’t have to do anything extraordinary to be special. Just being yourself is already something lovely. Keep smiling, Devi ji. 🤍</p>
+  </div>
+  <footer>MADE JUST FOR YOUR DAY · WITH WARM WISHES</footer>
+</main>
+
+<script>
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 85; i++) {
+    const s = document.createElement('i');
+    s.className = 'star';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 3) + 's';
+    s.style.animationDuration = (1.5 + Math.random() * 3) + 's';
+    stars.appendChild(s);
+  }
+
+  const letter = document.getElementById('letter');
+  const wishes = [...document.querySelectorAll('.wish')];
+  const reveal = () => {
+    letter.classList.add('visible');
+    wishes.forEach((el, i) => setTimeout(() => el.classList.add('visible'), 250 + i * 220));
+    setTimeout(() => letter.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+    shower(32);
+  };
+  document.getElementById('openWish').addEventListener('click', reveal);
+
+  function shower(count = 24) {
+    const symbols = ['🌸', '✨', '💗', '✦', '🌷'];
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        const p = document.createElement('span');
+        p.className = 'petal';
+        p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.fontSize = (12 + Math.random() * 15) + 'px';
+        p.style.setProperty('--drift', (Math.random() * 180 - 90) + 'px');
+        p.style.animationDuration = (4 + Math.random() * 4) + 's';
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 8500);
+      }, i * 90);
+    }
+  }
+  document.getElementById('surprise').addEventListener('click', () => {
+    shower(65);
+    const btn = document.getElementById('surprise');
+    const note = document.getElementById('secretNote');
+    note.classList.add('visible');
+    btn.textContent = 'A whole sky of wishes for you 💗';
+    btn.disabled = true;
+    btn.style.opacity = '.85';
+    setTimeout(() => note.scrollIntoView({ behavior: 'smooth', block: 'center' }), 120);
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: .16 });
+  observer.observe(letter);
+  wishes.forEach(w => observer.observe(w));
+</script>
+</body>
+</html>
